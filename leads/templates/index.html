@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+        <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+        <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    {{leads}}
+    <header class="jumbotron text-center">
+        <h1>data visualization</h1>
+    </header>
+    <table>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>leads</th>
+        </tr>
+        {%for x in range(0,leads|length)%}
+        <tr>
+            <td>{{leads[x]["id"]}}</td>
+            <td>{{leads[x]["name"]}}</td>
+            <td>{{leads[x]["leads"]}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+
+    <script>
+        window.onload = function () {
+
+            var options = {
+                title: {
+                    text: "Employees and Leads"
+                },
+                subtitles: [{
+                    text: "As of October, 2018"
+                }],
+                animationEnabled: true,
+                data: [{
+                    type: "pie",
+                    startAngle: 40,
+                    toolTipContent: "<b>{label}</b>: {y}%",
+                    showInLegend: "true",
+                    legendText: "{label}",
+                    indexLabelFontSize: 16,
+                    indexLabel: "{label} - {y}%",
+                    dataPoints: [
+                        y: Number(leads[0]["leads"]), label:leads[0]["name"]
+                    ]
+                }]
+            };
+            $("#chartContainer").CanvasJSChart(options);
+        }
+    </script>
+
+</body>
+
+</html>
+
+<!-- <!DOCTYPE HTML>
+<html>
+<head>
+<script>
+window.onload = function () {
+
+var options = {
+	title: {
+		text: "Desktop OS Market Share in 2017"
+	},
+	subtitles: [{
+		text: "As of November, 2017"
+	}],
+	animationEnabled: true,
+	data: [{
+		type: "pie",
+		startAngle: 40,
+		toolTipContent: "<b>{label}</b>: {y}%",
+		showInLegend: "true",
+		legendText: "{label}",
+		indexLabelFontSize: 16,
+		indexLabel: "{label} - {y}%",
+		dataPoints: [
+			{ y: 48.36, label: "Windows 7" },
+			{ y: 26.85, label: "Windows 10" },
+			{ y: 1.49, label: "Windows 8" },
+			{ y: 6.98, label: "Windows XP" },
+			{ y: 6.53, label: "Windows 8.1" },
+			{ y: 2.45, label: "Linux" },
+			{ y: 3.32, label: "Mac OS X 10.12" },
+			{ y: 4.03, label: "Others" }
+		]
+	}]
+};
+$("#chartContainer").CanvasJSChart(options);
+
+}
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+</body>
+</html> -->
