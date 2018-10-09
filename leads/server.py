@@ -9,7 +9,8 @@ mysql = connectToMySQL("leads")
 app = Flask(__name__)
 @app.route('/')
 def index():
-    all_leads = mysql.query_db("SELECT * FROM users")
+    all_leads = mysql.query_db("SELECT * FROM employees")
+    print(all_leads)
     return render_template('index.html', leads = all_leads)
 # @app.route('/process', methods=['POST'])
 # def process():

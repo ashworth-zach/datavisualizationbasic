@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    {{leads}}
+    {{leads|length}}
     <header class="jumbotron text-center">
         <h1>data visualization</h1>
     </header>
@@ -52,9 +52,11 @@
                     showInLegend: "true",
                     legendText: "{label}",
                     indexLabelFontSize: 16,
-                    indexLabel: "{label} - {y}%",
+                    indexLabel: "{label} - {y}",
                     dataPoints: [
-                        y: Number(leads[0]["leads"]), label:leads[0]["name"]
+                    {% for client in leads %}
+                        { y: {{ client['leads'] }}, label: "{{ client['name'] }}" },
+                    {% endfor %}
                     ]
                 }]
             };
